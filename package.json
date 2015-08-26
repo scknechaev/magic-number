@@ -5,8 +5,12 @@
   "description": "Transforms a magic number.",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "node test.js",
+    "start": "node app/"
   },
   "author": "You",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "should": "^7.0.4"
+  }
 }

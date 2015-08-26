@@ -5,7 +5,7 @@ var http   = require('http'),
 
 function middleware (req, res) {
     var URL = url.parse(req.url, true);
-    
+
     if (URL.pathname === '/magicnumber' || URL.pathname === '/magicnumber/') {
         if (!URL.query.x || !URL.query.y) {
             res.statusCode = 400;

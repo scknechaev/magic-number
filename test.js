@@ -1,28 +1,41 @@
-/**
- * This is the test
- */
-var http = require('http'),
-	url  = require('url'),
-	port = 1337;
+var should = require('should'),
+	square = require('./app/getSquare.js');
 
-http.createServer(function (req, res) {
-	var urlParts = url.parse(req.url, true),
-		query 	 = urlParts.query,
-		x  		 = +(query.x),
-		y  		 = +(query.y);
-
-	res.writeHead(200, { 'Content-Type': 'text/plain' });
-	
-	if ( isParamsAvailable(x, y) ) {
-		res.end( Math.sqrt(x + y) + '');
-	} else {
-		res.end('Please send avail params');
-	}
-	
-}).listen(port);
-
-console.log('Application is started at ' + port);
-
-function isParamsAvailable (x, y) {
-	return !isNaN(x) && !isNaN(y);
-}
+describe('getSquare', function () {
+    it('should throw an error if x is not a number', function (done) {
+        square.getSquare('abc', 4, function (err, result) {
+            should.exist(err);
+            should.not.exist(result);
+            done();
+        });
+    });
+    it('should throw an error if y is not a number', function (done) {
+        square.getSquare(6, 'abc', function (err, result) {
+            should.exist(err);
+            should.not.exist(result);
+            done();
+        });
+    });
+    it('should throw an error if both parameters are not number', function (done) {
+        square.getSquare('abc', 'abc', function (err, result) {
+            should.exist(err);
+            should.not.exist(result);
+            done();
+        });
+    });
+    it('should return calculate the square root correctly', function (done) {
+        square.getSquare(10, 6, function (err, result) {
+            should.not.exist(err);
+            should.exist(result);
+            result.should.equal(4);
+            done();
+        });
+    });
+    it('should throw an error if parameter x is null', function (done) {
+        square.getSquare('null', 123, function (err, result) {
+            should.exist(err);
+            should.not.exist(result);
+            done();
+        });
+    });
+});
