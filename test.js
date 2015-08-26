@@ -10,7 +10,7 @@ http.createServer(function (req, res) {
 		query 	 = urlParts.query,
 		x  		 = +(query.x),
 		y  		 = +(query.y);
-	
+
 	res.writeHead(200, { 'Content-Type': 'text/plain' });
 	
 	if ( isParamsAvailable(x, y) ) {
