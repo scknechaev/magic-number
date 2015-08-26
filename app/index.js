@@ -1,31 +1,16 @@
-var http   = require('http'),
-    url    = require('url'),
-    square = require('./getSquare.js'),
-    port   = 1337;
+var square  = require('./getSquare.js'),
+    request = require('request'),
+    params  = generateParams();
 
-function middleware (req, res) {
-    var URL = url.parse(req.url, true);
+square.getSquare(params.x, params.y, function (err, num) { console.log(num); });
 
-    if (URL.pathname === '/magicnumber' || URL.pathname === '/magicnumber/') {
-        if (!URL.query.x || !URL.query.y) {
-            res.statusCode = 400;
-            res.end('x and y are required parameters');
-        } else {
-            square.getSquare(+URL.query.x, +URL.query.y, function (err, result) {
-                if (err) {
-                    res.statusCode = 400;
-                    res.end(err.message);
-                } else {
-                    res.statusCode = 200;
-                    res.end(String(result));
-                }
-            });
-        }
-    } else {
-        res.statusCode = 404;
-        res.end('Route not found');
-    }
+function generateParams () {
+    return {
+        'x' : generNumber(),
+        'y' : generNumber()
+    };
 }
 
-http.createServer(middleware).listen(port);
-console.log('Server is started at ' + port);
+function generNumber () {
+    return parseInt(Math.random() * 100, 0);
+}

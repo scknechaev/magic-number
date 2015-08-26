@@ -27,14 +27,6 @@ describe('getSquare', function () {
         square.getSquare(10, 6, function (err, result) {
             should.not.exist(err);
             should.exist(result);
-            result.should.equal(4);
-            done();
-        });
-    });
-    it('should throw an error if parameter x is null', function (done) {
-        square.getSquare('null', 123, function (err, result) {
-            should.exist(err);
-            should.not.exist(result);
             done();
         });
     });

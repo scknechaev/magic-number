@@ -11,6 +11,7 @@
   "author": "You",
   "license": "MIT",
   "devDependencies": {
+    "request": "^2.61.0",
     "should": "^7.0.4"
   }
 }
